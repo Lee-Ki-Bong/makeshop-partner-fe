@@ -1,4 +1,3 @@
-// hooks/useStartOAuth.ts
 "use client";
 
 import { useMutation } from "@tanstack/react-query";
@@ -11,12 +10,28 @@ export const useStartOAuth = () => {
   return useMutation({
     mutationFn: startOAuthFlow,
 
-    onSuccess: (data) => {
+    onSuccess: (res) => {
       addLog({
         status: "success",
-        data,
+        data: res,
         timestamp: new Date().toISOString(),
       });
+
+      setTimeout(() => {
+        addLog({
+          status: "success",
+          data: "인증 서버로 이동",
+          timestamp: new Date().toISOString(),
+        });
+      }, 1400);
+
+      // ✅ 인증 서버로 이동 (로그인 화면/동의 화면으로 유저를 보냄)
+      if (res?.data?.authorizeUrl) {
+        // ✅ 0.7초 후에 이동 (로그 확인 가능)
+        setTimeout(() => {
+          window.location.href = res.data.authorizeUrl;
+        }, 2800);
+      }
     },
 
     onError: (error: any) => {

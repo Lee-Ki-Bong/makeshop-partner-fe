@@ -8,10 +8,10 @@ const partnerApi = axios.create({
 });
 
 export interface OAuthResponse {
-  authorizationUrl: string;
+  authorizeUrl: string;
 }
 
-export const startOAuthFlow = async (): Promise<OAuthResponse> => {
+export const startOAuthFlow = async (): Promise<any> => {
   return partnerApi
     .get("/partner/oauth/start")
     .then((res) => res.data)
