@@ -36,7 +36,7 @@ export default function Home() {
       </div>
 
       {/* 오른쪽 사이드: 요청 결과 화면 */}
-      <div className="bg-muted relative hidden lg:block">
+      <div className="bg-muted relative hidden lg:block h-screen">
         <AuthResultPanel />
       </div>
     </div>

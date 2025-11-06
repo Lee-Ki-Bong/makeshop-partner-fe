@@ -10,10 +10,10 @@ export default function AuthResultPanel() {
   }
 
   return (
-    <div className="p-4 space-y-4">
+    <div className="p-4 space-y-4 overflow-y-auto">
       <h2 className="font-semibold text-lg">OAuth 응답 로그</h2>
 
-      {oauthLogs.map((log, index) => {
+      {[...oauthLogs].reverse().map((log, index) => {
         const isSuccess = log.status === "success";
         const payload = isSuccess ? log.data : log.error;
 
@@ -30,7 +30,7 @@ export default function AuthResultPanel() {
               <span className="opacity-70">{log.timestamp}</span>
             </div>
 
-            {/* 응답 JSON 출력 */}
+            {/* 응답 JSON */}
             <pre className="mt-2 overflow-auto text-xs">
               {JSON.stringify(payload, null, 2)}
             </pre>
