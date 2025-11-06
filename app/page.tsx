@@ -1,8 +1,10 @@
-import { LoginButton } from "@/components/login-button";
+import AuthResultPanel from "@/components/auth-result-panel";
+import LoginButtonWrapper from "@/components/login-button-wrapper";
 import { GalleryVerticalEnd } from "lucide-react";
 
 export default function Home() {
-  return (<div className="grid min-h-screen lg:grid-cols-2">
+  return (
+    <div className="grid min-h-screen lg:grid-cols-2">
       {/* 왼쪽 사이드: 로그인 버튼 및 로고 */}
       <div className="flex flex-col gap-4 p-6 md:p-10">
         {/* 로고 영역 */}
@@ -18,7 +20,7 @@ export default function Home() {
         {/* 로그인 버튼 */}
         <div className="flex flex-1 items-center justify-center">
           <div className="w-full max-w-xs">
-            <LoginButton /> {/* 로그인 버튼 추가 */}
+            <LoginButtonWrapper /> {/* 로그인 버튼 추가 */}
           </div>
         </div>
 
@@ -35,8 +37,8 @@ export default function Home() {
 
       {/* 오른쪽 사이드: 요청 결과 화면 */}
       <div className="bg-muted relative hidden lg:block">
-        {/* 예시: 요청받은 결과와 로그인/회원가입 폼 등의 출력 */}
+        <AuthResultPanel />
       </div>
     </div>
-  )
+  );
 }

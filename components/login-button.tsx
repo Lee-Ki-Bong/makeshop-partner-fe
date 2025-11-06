@@ -1,11 +1,18 @@
-import { Button } from "@/components/ui/button"
+"use client";
+
+import { Button } from "@/components/ui/button";
+import { useStartOAuth } from "@/hooks/useStartOAuth";
 
 export function LoginButton() {
+  const { mutate: startOAuth, isPending } = useStartOAuth();
+
   return (
     <Button
       className="w-full"
+      onClick={() => startOAuth()}
+      disabled={isPending}
     >
-      로그인
+      {isPending ? "Loading..." : "로그인"}
     </Button>
-  )
+  );
 }
