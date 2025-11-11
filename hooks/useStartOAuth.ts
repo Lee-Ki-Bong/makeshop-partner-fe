@@ -3,12 +3,17 @@
 import { useMutation } from "@tanstack/react-query";
 import { startOAuthFlow } from "@/api/partner-api";
 import { useAuthStore } from "@/stores/useAuthStore";
+import { collectDeviceInfo } from "@/lib/device";
 
 export const useStartOAuth = () => {
   const addLog = useAuthStore((state) => state.addLog);
 
   return useMutation({
-    mutationFn: startOAuthFlow,
+    mutationFn: async () => {
+      const deviceInfo = collectDeviceInfo(); // 여기서 호출
+      // 파트너 백엔드로 전달
+      return startOAuthFlow(deviceInfo);
+    },
 
     onSuccess: (res) => {
       addLog({

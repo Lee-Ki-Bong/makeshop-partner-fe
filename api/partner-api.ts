@@ -11,9 +11,14 @@ export interface OAuthResponse {
   authorizeUrl: string;
 }
 
-export const startOAuthFlow = async (): Promise<any> => {
+export interface DeviceInfo {
+  device_id: string;
+  user_agent: string;
+}
+
+export const startOAuthFlow = async (deviceInfo: DeviceInfo): Promise<any> => {
   return partnerApi
-    .get("/partner/oauth/start")
+    .post("/partner/oauth/start", deviceInfo)
     .then((res) => res.data)
     .catch((error) => {
       // ✅ AxiosError는 그대로 throw (response 포함)
