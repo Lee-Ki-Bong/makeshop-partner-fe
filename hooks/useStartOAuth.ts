@@ -17,16 +17,16 @@ export const useStartOAuth = () => {
         timestamp: new Date().toISOString(),
       });
 
-      setTimeout(() => {
-        addLog({
-          status: "success",
-          data: "인증 서버로 이동",
-          timestamp: new Date().toISOString(),
-        });
-      }, 1400);
-
-      // ✅ 인증 서버로 이동 (로그인 화면/동의 화면으로 유저를 보냄)
       if (res?.data?.authorizeUrl) {
+        setTimeout(() => {
+          addLog({
+            status: "success",
+            data: `파트너 백앤드에서 받은 authorizeUrl 로 리다이렉트 ${res.data.authorizeUrl}`,
+            timestamp: new Date().toISOString(),
+          });
+        }, 1400);
+
+        // ✅ 인증 서버로 이동 (로그인 화면/동의 화면으로 유저를 보냄)
         // ✅ 0.7초 후에 이동 (로그 확인 가능)
         setTimeout(() => {
           window.location.href = res.data.authorizeUrl;
