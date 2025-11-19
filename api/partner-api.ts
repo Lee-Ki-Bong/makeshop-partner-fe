@@ -5,6 +5,7 @@ const partnerApi = axios.create({
   headers: {
     "Content-Type": "application/json",
   },
+  withCredentials: true, // 중요한 인증 세션용
 });
 
 export interface OAuthResponse {
@@ -22,6 +23,15 @@ export const startOAuthFlow = async (deviceInfo: DeviceInfo): Promise<any> => {
     .then((res) => res.data)
     .catch((error) => {
       // ✅ AxiosError는 그대로 throw (response 포함)
+      throw error;
+    });
+};
+
+export const me = async () => {
+  return partnerApi
+    .get("partner/me")
+    .then((res) => res.data)
+    .catch((error) => {
       throw error;
     });
 };

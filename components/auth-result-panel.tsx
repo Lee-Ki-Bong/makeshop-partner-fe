@@ -6,7 +6,7 @@ export default function AuthResultPanel() {
   const oauthLogs = useAuthStore((state) => state.oauthLogs);
 
   if (!oauthLogs || oauthLogs.length === 0) {
-    return <p className="text-sm text-gray-500 p-4">로그인 응답이 없습니다.</p>;
+    return <p className="text-sm text-gray-500 p-4">응답이 없습니다.</p>;
   }
 
   return (
