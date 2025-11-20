@@ -5,10 +5,19 @@ import { me } from "@/api/partner-api";
 import { useAuthStore } from "@/stores/useAuthStore";
 import { useEffect } from "react";
 
+interface MeResponse {
+  success: boolean;
+  operation: string;
+  message: string;
+  data: any; // 혹은 UserInfo 타입
+}
+
 export const useMe = () => {
   const addLog = useAuthStore((state) => state.addLog);
+  const setUser = useAuthStore((state) => state.setUser);
+  const clearUser = useAuthStore((state) => state.clearUser);
 
-  const query = useQuery({
+  const query = useQuery<MeResponse>({
     queryKey: ["me"],
     queryFn: me,
     retry: false,
@@ -22,6 +31,8 @@ export const useMe = () => {
         data: query.data,
         timestamp: new Date().toISOString(),
       });
+
+      setUser(query.data.data); // 유저 데이터 저장
     }
   }, [query.isSuccess]);
 
@@ -38,6 +49,8 @@ export const useMe = () => {
         error: backendError || { message: err.message, statusCode },
         timestamp: new Date().toISOString(),
       });
+
+      clearUser();
     }
   }, [query.isError]);
 

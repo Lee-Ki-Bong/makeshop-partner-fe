@@ -1,5 +1,8 @@
+"use client";
+
 import AuthResultPanel from "@/components/auth-result-panel";
 import { LogoutButton } from "@/components/logout-button";
+import { useAuthStore } from "@/stores/useAuthStore";
 import { GalleryVerticalEnd } from "lucide-react";
 
 export default function MarketingLayout({
@@ -7,6 +10,9 @@ export default function MarketingLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const isLoggedIn = useAuthStore((s) => s.isLoggedIn);
+  const user = useAuthStore((s) => s.user);
+
   return (
     <div className="grid min-h-screen lg:grid-cols-2">
       {/* 왼쪽 사이드 */}
@@ -21,7 +27,14 @@ export default function MarketingLayout({
           </a>
 
           <div>
-            <LogoutButton />
+            {isLoggedIn ? (
+              <>
+                <p>{user.email} 님 안녕하세요! </p>
+                <LogoutButton />
+              </>
+            ) : (
+              <p>로그인하지 않음</p>
+            )}
           </div>
         </div>
 
