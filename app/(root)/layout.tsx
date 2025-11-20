@@ -28,10 +28,10 @@ export default function MarketingLayout({
 
           <div>
             {isLoggedIn ? (
-              <>
-                <p>{user.email} 님 안녕하세요! </p>
+              <div className="flex items-center gap-2">
+                <p>{user.email}</p>
                 <LogoutButton />
-              </>
+              </div>
             ) : (
               <p>로그인하지 않음</p>
             )}
