@@ -22,14 +22,22 @@ export const startOAuthFlow = async (deviceInfo: DeviceInfo): Promise<any> => {
     .post("/partner/oauth/start", deviceInfo)
     .then((res) => res.data)
     .catch((error) => {
-      // ✅ AxiosError는 그대로 throw (response 포함)
-      throw error;
+      throw error; // AxiosError는 그대로 throw (response 포함)
     });
 };
 
 export const me = async () => {
   return partnerApi
     .get("partner/me")
+    .then((res) => res.data)
+    .catch((error) => {
+      throw error;
+    });
+};
+
+export const logout = async () => {
+  return partnerApi
+    .post("/partner/logout")
     .then((res) => res.data)
     .catch((error) => {
       throw error;
