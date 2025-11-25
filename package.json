@@ -8,8 +8,9 @@
     "start": "next start",
     "lint": "eslint",
     "gen:api": "curl http://localhost:3002/openapi.json | npx openapi-typescript -o api/openapi.ts",
+    "gen:split": "node scripts/split-openapi.mjs",
     "gen:axios": "node scripts/generate-axios.mjs",
-    "sync:api": "npm run gen:api && npm run gen:axios"
+    "sync:api": "npm run gen:api && npm run gen:split && npm run gen:axios"
   },
   "dependencies": {
     "@radix-ui/react-label": "^2.1.8",
@@ -36,6 +37,7 @@
     "eslint-config-next": "16.0.1",
     "openapi-typescript": "^7.10.1",
     "tailwindcss": "^4",
+    "ts-morph": "^27.0.2",
     "tw-animate-css": "^1.4.0",
     "typescript": "^5"
   }
