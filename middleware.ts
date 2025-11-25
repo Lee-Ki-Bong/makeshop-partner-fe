@@ -2,9 +2,7 @@ import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
 export function middleware(req: NextRequest) {
-  const session = req.cookies.get("session_id")?.value;
-
-  console.log("session_id:", session);
+  const session = req.cookies.get("partner-center.sid")?.value;
 
   // 보호해야 하는 모든 경로
   const protectedRoutes = ["/", "/dashboard"];

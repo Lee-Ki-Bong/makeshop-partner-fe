@@ -29,7 +29,7 @@ export default function MarketingLayout({
           <div>
             {isLoggedIn ? (
               <div className="flex items-center gap-2">
-                <p>{user.email}</p>
+                <p>{user?.email}</p>
                 <LogoutButton />
               </div>
             ) : (

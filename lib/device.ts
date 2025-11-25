@@ -1,15 +1,11 @@
-export const ensureDeviceId = (): string => {
-  const KEY = "ms_device_id";
+"use client";
+
+export const ensureDeviceId = () => {
+  const KEY = "ms_device_id"; // @TODO constants.ts 로 관리
   let id = localStorage.getItem(KEY);
   if (!id) {
     id = crypto.randomUUID();
     localStorage.setItem(KEY, id);
   }
   return id;
-};
-
-export const collectDeviceInfo = () => {
-  const device_id = ensureDeviceId();
-  const user_agent = navigator.userAgent || "";
-  return { device_id, user_agent };
 };
