@@ -1,9 +1,9 @@
 "use client";
 
 import { useMutation } from "@tanstack/react-query";
-import { startOAuthFlow } from "@/api/partner-api";
 import { useAuthStore } from "@/stores/useAuthStore";
 import { ensureDeviceId } from "@/lib/device";
+import { AuthService, StartOAuthResponseDto } from "@/api/generated";
 
 export const useStartOAuth = () => {
   const addLog = useAuthStore((state) => state.addLog);
@@ -11,7 +11,11 @@ export const useStartOAuth = () => {
   return useMutation({
     mutationFn: async () => {
       const deviceId = ensureDeviceId();
-      return startOAuthFlow(deviceId);
+      return AuthService.startOAuthControllerStartOauth(deviceId)
+        .then((res) => res)
+        .catch((error) => {
+          throw error; // AxiosError는 그대로 throw (response 포함)
+        });
     },
 
     onSuccess: (res) => {
@@ -21,11 +25,13 @@ export const useStartOAuth = () => {
         timestamp: new Date().toISOString(),
       });
 
-      if (res?.data?.authorizeUrl) {
+      const data = res.data as StartOAuthResponseDto;
+
+      if (data.authorizeUrl) {
         setTimeout(() => {
           addLog({
             status: "success",
-            data: `파트너 백앤드에서 받은 authorizeUrl 로 리다이렉트 ${res.data.authorizeUrl}`,
+            data: `파트너 백앤드에서 받은 authorizeUrl 로 리다이렉트 ${data.authorizeUrl}`,
             timestamp: new Date().toISOString(),
           });
         }, 1400);
@@ -33,7 +39,7 @@ export const useStartOAuth = () => {
         // ✅ 인증 서버로 이동 (로그인 화면/동의 화면으로 유저를 보냄)
         // ✅ 0.7초 후에 이동 (로그 확인 가능)
         setTimeout(() => {
-          window.location.href = res.data.authorizeUrl;
+          window.location.href = data.authorizeUrl;
         }, 2800);
       }
     },

@@ -1,10 +1,10 @@
 "use client";
 
 import { useQuery } from "@tanstack/react-query";
-import { me } from "@/api/partner-api";
 import { useAuthStore } from "@/stores/useAuthStore";
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
+import { UserService } from "@/api/generated";
 
 interface MeResponse {
   success: boolean;
@@ -21,7 +21,7 @@ export const useMe = () => {
 
   const query = useQuery<MeResponse>({
     queryKey: ["me"],
-    queryFn: me,
+    queryFn: UserService.meControllerGetMe,
     retry: false,
   });
 
