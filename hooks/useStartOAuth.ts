@@ -44,13 +44,17 @@ export const useStartOAuth = () => {
       }
     },
 
-    onError: (error: any) => {
-      const backendError = error?.response?.data || null; // ✅ 404 JSON도 포함됨
-      const statusCode = error?.response?.status || "Unknown";
+    onError: (err: any) => {
+      const backendError = err?.body ?? {
+        message: err.message ?? "알 수 없는 오류",
+        statusCode: err.status ?? "Unknown",
+      };
+
+      const statusCode = backendError.statusCode;
 
       addLog({
         status: "error",
-        error: backendError || { message: error.message, statusCode },
+        error: backendError || { message: err.message, statusCode },
         timestamp: new Date().toISOString(),
       });
     },

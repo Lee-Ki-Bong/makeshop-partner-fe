@@ -43,8 +43,12 @@ export const useMe = () => {
     if (query.isError) {
       const err: any = query.error;
 
-      const backendError = err?.response?.data || null;
-      const statusCode = err?.response?.status || "Unknown";
+      const backendError = err?.body ?? {
+        message: err.message ?? "알 수 없는 오류",
+        statusCode: err.status ?? "Unknown",
+      };
+
+      const statusCode = backendError.statusCode;
 
       addLog({
         status: "error",
@@ -59,9 +63,19 @@ export const useMe = () => {
             error: `로그인 페이지로 리다이렉트`,
             timestamp: new Date().toISOString(),
           });
+          clearUser();
+          router.push("/signin");
         }
-        clearUser();
-        router.push("/signin");
+
+        if (statusCode === 404) {
+          addLog({
+            status: "error",
+            error: `PB에 사용자 정보가 없습니다 → 동의(연동) 절차가 필요합니다.`,
+            timestamp: new Date().toISOString(),
+          });
+          clearUser();
+          router.push("/signin");
+        }
       }, 2000);
     }
   }, [query.isError]);

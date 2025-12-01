@@ -26,8 +26,12 @@ export const useLogout = () => {
     },
 
     onError: (err: any) => {
-      const backendError = err?.response?.data || null; // ✅ 404 JSON도 포함됨
-      const statusCode = err?.response?.status || "Unknown";
+      const backendError = err?.body ?? {
+        message: err.message ?? "알 수 없는 오류",
+        statusCode: err.status ?? "Unknown",
+      };
+
+      const statusCode = backendError.statusCode;
 
       addLog({
         status: "error",
