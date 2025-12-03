@@ -7,5 +7,9 @@ export type StartOAuthRequestDto = {
      * 디바이스 고유 식별자(브라우저 또는 앱 단위). 클라이언트가 생성해 전달합니다.
      */
     deviceId: string;
+    /**
+     * IDP UI 힌트 (로그인/회원가입 선택). screen_hint=signup 시 회원가입 UI 표시.
+     */
+    screenHint?: string;
 };
 

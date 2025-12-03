@@ -5,13 +5,16 @@ import { useAuthStore } from "@/stores/useAuthStore";
 import { ensureDeviceId } from "@/lib/device";
 import { AuthService, StartOAuthResponseDto } from "@/api/generated";
 
-export const useStartOAuth = () => {
+export const useStartOAuth = (screenHint?: string) => {
   const addLog = useAuthStore((state) => state.addLog);
 
   return useMutation({
     mutationFn: async () => {
+      // 디바이스 ID 생성
       const deviceId = ensureDeviceId();
-      return AuthService.startOAuthControllerStartOauth(deviceId)
+
+      // 회원가입이면 screenHint=signup 전달
+      return AuthService.startOAuthControllerStartOauth(deviceId, screenHint)
         .then((res) => res)
         .catch((error) => {
           throw error; // AxiosError는 그대로 throw (response 포함)
