@@ -23,5 +23,33 @@ export type CreateUserDto = {
      * 전화번호
      */
     phone?: string;
+    /**
+     * 대표 이미지
+     */
+    representativeImage?: string;
+    /**
+     * 홈페이지 URL
+     */
+    homepageUrl?: string;
+    /**
+     * 대표자명
+     */
+    representativeName?: string;
+    /**
+     * 우편번호
+     */
+    postalCode?: string;
+    /**
+     * 기본 주소
+     */
+    baseAddress?: string;
+    /**
+     * 상세 주소
+     */
+    detailAddress?: string;
+    /**
+     * 소개글
+     */
+    introduction?: string;
 };
 

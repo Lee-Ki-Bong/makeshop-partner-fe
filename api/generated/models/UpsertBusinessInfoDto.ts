@@ -2,11 +2,11 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-export type BusinessInfoResponseDto = {
+export type UpsertBusinessInfoDto = {
     /**
      * 사업자 유형
      */
-    businessType: string;
+    businessType: 'INDIVIDUAL' | 'CORPORATE' | 'NON_BUSINESS';
     /**
      * 증빙 파일
      */
@@ -58,10 +58,6 @@ export type BusinessInfoResponseDto = {
     /**
      * 반려 사유
      */
-    rejectReason?: Record<string, any> | null;
-    /**
-     * 상태
-     */
-    status: string;
+    rejectReason?: string;
 };
 

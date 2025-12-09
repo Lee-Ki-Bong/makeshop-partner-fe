@@ -2,7 +2,9 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-export type UpdatePartnerAgreementDto = {
+export type CreatePartnerAgreementDto = {
+    termsOfUse: boolean;
+    privacyPolicy: boolean;
     marketingSms: boolean;
     marketingEmail: boolean;
 };

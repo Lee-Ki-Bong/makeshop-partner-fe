@@ -2,19 +2,15 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-export type CreateWithdrawalRequestDto = {
+export type CreateWithdrawalDto = {
     /**
-     * 탈퇴 사유 ID
+     * 탈퇴 사유 code
      */
-    withdrawalReasonId?: number;
+    reasonCode: string;
     /**
-     * 기타 사유
+     * 기타 사유 시 사용
      */
     customReason?: string;
-    /**
-     * 요청자명
-     */
-    requesterName?: string;
     /**
      * 탈퇴 동의 확인
      */

@@ -4,14 +4,6 @@
 /* eslint-disable */
 export type TaxInfoResponseDto = {
     /**
-     * ID
-     */
-    id: number;
-    /**
-     * 파트너 ID
-     */
-    partnerId: number;
-    /**
      * 과세 유형
      */
     taxType: 'SIMPLIFIED' | 'GENERAL';
@@ -27,13 +19,5 @@ export type TaxInfoResponseDto = {
      * 담당자 연락처
      */
     managerPhone: Record<string, any> | null;
-    /**
-     * 생성일
-     */
-    createdAt: string;
-    /**
-     * 수정일
-     */
-    updatedAt: string;
 };
 

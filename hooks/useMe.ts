@@ -73,8 +73,7 @@ export const useMe = () => {
             error: `PB에 사용자 정보가 없습니다 → 동의(연동) 절차가 필요합니다.`,
             timestamp: new Date().toISOString(),
           });
-          clearUser();
-          router.push("/signin");
+          router.push("/onboarding");
         }
       }, 2000);
     }

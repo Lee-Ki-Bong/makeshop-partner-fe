@@ -5,7 +5,7 @@ export function middleware(req: NextRequest) {
   const session = req.cookies.get("partner-center.sid")?.value;
 
   // 보호해야 하는 모든 경로
-  const protectedRoutes = ["/", "/dashboard"];
+  const protectedRoutes = ["/", "/dashboard", "/onboarding"];
 
   // 현재 요청 경로
   const pathname = req.nextUrl.pathname;
@@ -20,5 +20,5 @@ export function middleware(req: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/", "/dashboard"],
+  matcher: ["/", "/dashboard", "/onboarding"],
 };

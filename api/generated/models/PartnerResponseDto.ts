@@ -10,35 +10,35 @@ export type PartnerResponseDto = {
     /**
      * 대표 이미지 URL
      */
-    representativeImage: Record<string, any> | null;
+    representativeImage: string;
     /**
      * 홈페이지 URL
      */
-    homepageUrl: Record<string, any> | null;
+    homepageUrl: string;
     /**
      * 대표자명
      */
-    representativeName: Record<string, any> | null;
+    representativeName: string;
     /**
      * 이메일
      */
-    email: Record<string, any> | null;
+    email: string;
     /**
      * 전화번호
      */
-    phone: Record<string, any> | null;
+    phone: string;
     /**
      * 우편번호
      */
-    postalCode: Record<string, any> | null;
+    postalCode: string;
     /**
      * 기본 주소
      */
-    baseAddress: Record<string, any> | null;
+    baseAddress: string;
     /**
      * 상세 주소
      */
-    detailAddress: Record<string, any> | null;
+    detailAddress: string;
     /**
      * 소개글
      */

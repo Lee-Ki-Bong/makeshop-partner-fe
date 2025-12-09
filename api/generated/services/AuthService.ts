@@ -19,7 +19,7 @@ export class AuthService {
      *
      * @param deviceId 디바이스 고유 식별자(브라우저 또는 앱 단위). 클라이언트가 생성해 전달합니다.
      * @param screenHint IDP UI 힌트 (로그인/회원가입 선택). screen_hint=signup 시 회원가입 UI 표시.
-     * @returns any OAuth 시작 URL 및 state 정보가 정상적으로 반환됩니다.
+     * @returns any OAuth 시작 URL 및 관련 값들이 정상적으로 반환됩니다.
      * @throws ApiError
      */
     public static startOAuthControllerStartOauth(

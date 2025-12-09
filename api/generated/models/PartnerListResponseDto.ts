@@ -4,7 +4,7 @@
 /* eslint-disable */
 import type { AdminPartnerResponseDto } from './AdminPartnerResponseDto';
 export type PartnerListResponseDto = {
-    data: Array<AdminPartnerResponseDto>;
+    partners: Array<AdminPartnerResponseDto>;
     total: number;
     page: number;
     perPage: number;
