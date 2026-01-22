@@ -4,25 +4,16 @@ import { useQuery } from "@tanstack/react-query";
 import { useAuthStore } from "@/stores/useAuthStore";
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
-import {
-  Service as PartnerService,
-  UserStateResponseDto,
-} from "@/api/generated";
-
-interface PartnerAgreementResponse {
-  success: boolean;
-  operation: string;
-  message: string;
-  data: any; // TODO: PartnerAgreementDto 로 교체 권장
-}
+import { getAdminPartnerControllerGetPartnerQueryOptions } from "@/api/generated/파트너-어드민-파트너-정보/파트너-어드민-파트너-정보";
+import { AdminPartnerControllerGetPartner200 } from "@/api/generated/model";
 
 export const usePartnerAgreement = (enabled: boolean) => {
   const addLog = useAuthStore((state) => state.addLog);
   const router = useRouter();
 
-  const query = useQuery<UserStateResponseDto>({
-    queryKey: ["partner-agreement"],
-    queryFn: PartnerService.adminUserControllerGetUserState,
+  const query = useQuery<AdminPartnerControllerGetPartner200>({
+    queryKey: getAdminPartnerControllerGetPartnerQueryOptions().queryKey,
+    queryFn: getAdminPartnerControllerGetPartnerQueryOptions().queryFn,
     enabled, // 의존성 명시적 설정
     retry: false,
   });

@@ -3,7 +3,9 @@
 import { useMutation } from "@tanstack/react-query";
 import { useAuthStore } from "@/stores/useAuthStore";
 import { ensureDeviceId } from "@/lib/device";
-import { AuthService, StartOAuthResponseDto } from "@/api/generated";
+import { startOAuthControllerStartOauth } from "@/api/generated/파트너-어드민-auth/파트너-어드민-auth";
+import { StartOAuthControllerStartOauth200 } from "@/api/generated/model/startOAuthControllerStartOauth200";
+import { StartOAuthResponseDto } from "@/api/generated/model";
 
 export const useStartOAuth = (screenHint?: string) => {
   const addLog = useAuthStore((state) => state.addLog);
@@ -14,14 +16,14 @@ export const useStartOAuth = (screenHint?: string) => {
       const deviceId = ensureDeviceId();
 
       // 회원가입이면 screenHint=signup 전달
-      return AuthService.startOAuthControllerStartOauth(deviceId, screenHint)
-        .then((res) => res)
+      return startOAuthControllerStartOauth({ deviceId, screenHint })
+        .then((data) => data)
         .catch((error) => {
           throw error; // AxiosError는 그대로 throw (response 포함)
         });
     },
 
-    onSuccess: (res) => {
+    onSuccess: (res: StartOAuthControllerStartOauth200) => {
       addLog({
         status: "success",
         data: res,

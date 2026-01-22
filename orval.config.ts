@@ -45,7 +45,7 @@ export default defineConfig({
       target: OUTPUT_DIR,
       schemas: SCHEMA_DIR,
       client: "react-query",
-      mock: true,
+      mock: false,
       prettier: true,
       override: {
         mutator: {

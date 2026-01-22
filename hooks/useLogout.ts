@@ -1,10 +1,9 @@
 "use client";
 
 import { useMutation } from "@tanstack/react-query";
-import { logout } from "@/api/partner-api";
 import { useRouter } from "next/navigation";
 import { useAuthStore } from "@/stores/useAuthStore";
-import { AuthService } from "@/api/generated";
+import { getLogoutControllerLogoutMutationOptions } from "@/api/generated/파트너-어드민-auth/파트너-어드민-auth";
 
 export const useLogout = () => {
   const router = useRouter();
@@ -12,7 +11,7 @@ export const useLogout = () => {
   const clearUser = useAuthStore((s) => s.clearUser);
 
   return useMutation({
-    mutationFn: AuthService.logoutControllerLogout,
+    mutationFn: getLogoutControllerLogoutMutationOptions().mutationFn,
 
     onSuccess: (res) => {
       addLog({

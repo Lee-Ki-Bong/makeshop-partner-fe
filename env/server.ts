@@ -11,7 +11,7 @@ export const serverEnvSchema = z.object({
   OPENAPI_URL: z.string().url().optional(),
   OPENAPI_SNAPSHOT_PATH: z.string().optional(),
 
-  ORVAL_SOURCE: z.enum(["local", "remote"]).optional(),
+  ORVAL_SOURCE: z.enum(["snapshot", "remote"]).optional(),
   ORVAL_OUTPUT_DIR: z.string().optional(),
   ORVAL_SCHEMA_DIR: z.string().optional(),
 });

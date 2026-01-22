@@ -4,14 +4,11 @@ import { useQuery } from "@tanstack/react-query";
 import { useAuthStore } from "@/stores/useAuthStore";
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { ApiResponseDto, Service } from "@/api/generated";
-
-interface MeResponse {
-  success: boolean;
-  operation: string;
-  message: string;
-  data: any; // 혹은 UserInfo 타입
-}
+import { getMeControllerGetMeQueryOptions } from "@/api/generated/파트너-어드민-현재-상태-스냅샷/파트너-어드민-현재-상태-스냅샷";
+import {
+  MeControllerGetMe200AllOf,
+  MeResponseDto,
+} from "@/api/generated/model";
 
 export const useMe = () => {
   const addLog = useAuthStore((state) => state.addLog);
@@ -19,9 +16,9 @@ export const useMe = () => {
   const clearUser = useAuthStore((state) => state.clearUser);
   const router = useRouter();
 
-  const query = useQuery<ApiResponseDto>({
+  const query = useQuery<MeControllerGetMe200AllOf>({
     queryKey: ["me"],
-    queryFn: Service.meControllerGetMe,
+    queryFn: getMeControllerGetMeQueryOptions().queryFn,
     retry: false,
   });
 
