@@ -2,8 +2,7 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-export type UpdatePartnerAgreementDto = {
-    marketingSms: boolean;
-    marketingEmail: boolean;
+export type LogoutResponseDto = {
+    success: boolean;
 };
 

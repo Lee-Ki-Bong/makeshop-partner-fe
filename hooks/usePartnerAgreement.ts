@@ -4,7 +4,10 @@ import { useQuery } from "@tanstack/react-query";
 import { useAuthStore } from "@/stores/useAuthStore";
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { Service as PartnerService } from "@/api/generated";
+import {
+  Service as PartnerService,
+  UserStateResponseDto,
+} from "@/api/generated";
 
 interface PartnerAgreementResponse {
   success: boolean;
@@ -17,9 +20,9 @@ export const usePartnerAgreement = (enabled: boolean) => {
   const addLog = useAuthStore((state) => state.addLog);
   const router = useRouter();
 
-  const query = useQuery<PartnerAgreementResponse>({
+  const query = useQuery<UserStateResponseDto>({
     queryKey: ["partner-agreement"],
-    queryFn: PartnerService.partnerAgreementControllerGet,
+    queryFn: PartnerService.adminUserControllerGetUserState,
     enabled, // 의존성 명시적 설정
     retry: false,
   });

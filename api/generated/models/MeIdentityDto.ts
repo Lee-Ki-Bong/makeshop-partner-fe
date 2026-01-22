@@ -2,14 +2,10 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-export type UploadResponseDto = {
+export type MeIdentityDto = {
     /**
-     * 파일 경로
+     * 로그인 식별자 (아직 사용자 확정 전일 수 있음)
      */
-    path: string;
-    /**
-     * 저장된 파일명 (UUID)
-     */
-    filename: string;
+    loginUid: Record<string, any> | null;
 };
 

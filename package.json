@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "api:pull": "curl http://localhost:3002/openapi.json -o api/openapi.json",
+    "api:pull": "curl http://localhost:4110/openapi.json -o api/openapi.json",
     "api:gen": "openapi --input api/openapi.json --output api/generated --client axios --useUnionTypes",
     "api:all": "npm run api:pull && npm run api:gen"
   },

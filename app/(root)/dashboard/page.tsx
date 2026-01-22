@@ -6,7 +6,14 @@ import { usePartnerAgreement } from "@/hooks/usePartnerAgreement";
 export default function DashboardPage() {
   const me = useMe();
 
-  const pa = usePartnerAgreement(me.isSuccess);
+  const flags = me.data?.data?.flags;
+
+  const hasPartner = flags?.hasPartner === true;
+  const hasAgreed = flags?.agreed === true;
+
+  const existingAgreement = hasPartner && hasAgreed;
+
+  const pa = usePartnerAgreement(existingAgreement);
 
   if (me.isLoading) return <div>Loading...</div>;
   if (me.isError) return null; // useMe 내부에서 라우팅 처리됨

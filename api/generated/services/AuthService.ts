@@ -3,8 +3,6 @@
 /* tslint:disable */
 /* eslint-disable */
 import type { ApiResponseDto } from '../models/ApiResponseDto';
-import type { CreateUserDto } from '../models/CreateUserDto';
-import type { SyncUserDto } from '../models/SyncUserDto';
 import type { CancelablePromise } from '../core/CancelablePromise';
 import { OpenAPI } from '../core/OpenAPI';
 import { request as __request } from '../core/request';
@@ -28,7 +26,7 @@ export class AuthService {
     ): CancelablePromise<ApiResponseDto> {
         return __request(OpenAPI, {
             method: 'GET',
-            url: '/oauth/start',
+            url: '/admin/oauth/start',
             query: {
                 'deviceId': deviceId,
                 'screenHint': screenHint,
@@ -42,120 +40,17 @@ export class AuthService {
      *
      * 응답 자체는 JSON을 반환하지만, 실제 쿠키 삭제는 LogoutCookieClearInterceptor에서 처리됩니다.
      *
+     * - 본 API의 성공 응답은 **서버 세션 무효화 완료**를 의미합니다.
+     * - 브라우저 쿠키 삭제는 HTTP 응답 헤더(Set-Cookie)를 통해 처리되며,
+     * 클라이언트의 추가 작업은 필요하지 않습니다.
+     *
      * @returns any 정상적으로 로그아웃되었습니다.
      * @throws ApiError
      */
-    public static logoutControllerLogout(): CancelablePromise<any> {
+    public static logoutControllerLogout(): CancelablePromise<ApiResponseDto> {
         return __request(OpenAPI, {
             method: 'POST',
-            url: '/logout',
-        });
-    }
-    /**
-     * OAuth 로그인 (Redirect)
-     * OAuth 서버로 리다이렉트 (나중에 구현)
-     * @returns any OAuth 로그인 (Redirect)
-     * @throws ApiError
-     */
-    public static authControllerLogin(): CancelablePromise<any> {
-        return __request(OpenAPI, {
-            method: 'GET',
-            url: '/auth/login',
-        });
-    }
-    /**
-     * OAuth 콜백
-     * OAuth 서버에서 리다이렉트된 후 처리 (나중에 구현)
-     * @param code
-     * @returns any
-     * @throws ApiError
-     */
-    public static authControllerCallback(
-        code: string,
-    ): CancelablePromise<any> {
-        return __request(OpenAPI, {
-            method: 'GET',
-            url: '/auth/callback',
-            query: {
-                'code': code,
-            },
-        });
-    }
-    /**
-     * 사용자 정보 동기화
-     * OAuth 서버의 사용자 정보를 로컬 DB에 동기화 (개발용)
-     * @param requestBody
-     * @returns any
-     * @throws ApiError
-     */
-    public static authControllerSyncUser(
-        requestBody: SyncUserDto,
-    ): CancelablePromise<any> {
-        return __request(OpenAPI, {
-            method: 'POST',
-            url: '/auth/sync',
-            body: requestBody,
-            mediaType: 'application/json',
-        });
-    }
-    /**
-     * 현재 로그인 사용자 정보
-     * @returns any
-     * @throws ApiError
-     */
-    public static authControllerGetMe(): CancelablePromise<any> {
-        return __request(OpenAPI, {
-            method: 'GET',
-            url: '/auth/me',
-        });
-    }
-    /**
-     * 로그아웃
-     * @returns any
-     * @throws ApiError
-     */
-    public static authControllerLogout(): CancelablePromise<any> {
-        return __request(OpenAPI, {
-            method: 'POST',
-            url: '/auth/logout',
-        });
-    }
-    /**
-     * 테스트용 로그인 (토큰 발급)
-     * @returns any
-     * @throws ApiError
-     */
-    public static authControllerLoginTest(): CancelablePromise<any> {
-        return __request(OpenAPI, {
-            method: 'POST',
-            url: '/auth/login/test',
-        });
-    }
-    /**
-     * 관리자 전용 API 테스트
-     * @returns any
-     * @throws ApiError
-     */
-    public static authControllerAdminOnly(): CancelablePromise<any> {
-        return __request(OpenAPI, {
-            method: 'GET',
-            url: '/auth/admin-only',
-        });
-    }
-    /**
-     * 테스트용 회원 가입
-     * @param requestBody
-     * @returns any
-     * @throws ApiError
-     */
-    public static authControllerCreateUser(
-        requestBody: CreateUserDto,
-    ): CancelablePromise<any> {
-        return __request(OpenAPI, {
-            method: 'POST',
-            url: '/auth/create-user',
-            body: requestBody,
-            mediaType: 'application/json',
+            url: '/admin/logout',
         });
     }
 }

@@ -2,25 +2,25 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-export type SyncUserDto = {
+export type UserResponseDto = {
     /**
-     * 사용자 ID (OAuth)
+     * 사용자 고유 ID
+     */
+    userId: string;
+    /**
+     * 로그인 UID (외부 인증 시스템 ID)
      */
     loginUid: string;
     /**
-     * 글로벌 ID
-     */
-    globalUid: string;
-    /**
-     * 이름
+     * 사용자 이름
      */
     name: string;
     /**
-     * 이메일
+     * 이메일 주소
      */
     email: string;
     /**
-     * 전화번호
+     * 휴대폰 번호
      */
     phone: string;
 };

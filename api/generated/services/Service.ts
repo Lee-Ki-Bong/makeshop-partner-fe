@@ -2,156 +2,72 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
+import type { ApiResponseDto } from '../models/ApiResponseDto';
 import type { CreatePartnerAgreementDto } from '../models/CreatePartnerAgreementDto';
-import type { CreateWithdrawalDto } from '../models/CreateWithdrawalDto';
-import type { PartnerListResponseDto } from '../models/PartnerListResponseDto';
-import type { PartnerResponseDto } from '../models/PartnerResponseDto';
-import type { UpdatePartnerAgreementDto } from '../models/UpdatePartnerAgreementDto';
-import type { UpdatePartnerDto } from '../models/UpdatePartnerDto';
-import type { WithdrawalReasonsResponseDto } from '../models/WithdrawalReasonsResponseDto';
-import type { WithdrawalResponseDto } from '../models/WithdrawalResponseDto';
+import type { UserResponseDto } from '../models/UserResponseDto';
+import type { UserStateResponseDto } from '../models/UserStateResponseDto';
 import type { CancelablePromise } from '../core/CancelablePromise';
 import { OpenAPI } from '../core/OpenAPI';
 import { request as __request } from '../core/request';
 export class Service {
     /**
-     * 사용자 상세 조회
-     * @returns any
-     * @throws ApiError
-     */
-    public static userControllerGetUser(): CancelablePromise<any> {
-        return __request(OpenAPI, {
-            method: 'GET',
-            url: '/user',
-        });
-    }
-    /**
-     * 사용자 탈퇴 사유 코드 조회
-     * @returns WithdrawalReasonsResponseDto 조회 성공
-     * @throws ApiError
-     */
-    public static userControllerGetReasons(): CancelablePromise<WithdrawalReasonsResponseDto> {
-        return __request(OpenAPI, {
-            method: 'GET',
-            url: '/user/withdrawal-reasons',
-        });
-    }
-    /**
-     * 상용자 탈퇴 신청
+     * 서비스 최초 등록 (동의 포함)
+     * 사용자가 이 서비스를 처음 이용할 때 호출되는 API입니다.
+     * 해당 요청이 오면 IDP userinfo를 조회하여 BFF DB에 유저를 생성하고, 파트너 서비스 이용 동의를 함께 저장합니다.
      * @param requestBody
-     * @returns WithdrawalResponseDto 탈퇴 신청 성공
+     * @returns any 서비스 최초 등록에 성공
      * @throws ApiError
      */
-    public static userControllerWithdrawal(
-        requestBody: CreateWithdrawalDto,
-    ): CancelablePromise<WithdrawalResponseDto> {
-        return __request(OpenAPI, {
-            method: 'POST',
-            url: '/user/withdrawal',
-            body: requestBody,
-            mediaType: 'application/json',
-        });
-    }
-    /**
-     * 내 파트너 프로필 조회
-     * @returns PartnerResponseDto 조회 성공
-     * @throws ApiError
-     */
-    public static partnerControllerGetProfile(): CancelablePromise<PartnerResponseDto> {
-        return __request(OpenAPI, {
-            method: 'GET',
-            url: '/partner',
-        });
-    }
-    /**
-     * 파트너 업데이트
-     * @param requestBody
-     * @returns PartnerResponseDto 업데이트 성공
-     * @throws ApiError
-     */
-    public static partnerControllerUpdateProfile(
-        requestBody: UpdatePartnerDto,
-    ): CancelablePromise<PartnerResponseDto> {
-        return __request(OpenAPI, {
-            method: 'PATCH',
-            url: '/partner',
-            body: requestBody,
-            mediaType: 'application/json',
-        });
-    }
-    /**
-     * 파트너 검색 및 리스트 조회 (백오피스)
-     * @param searchType 검색 타입 (name, email 등)
-     * @param keyword 검색 조건/키워드
-     * @param status 승인상태
-     * @param businessType 사업자 유형
-     * @param page 페이지 번호
-     * @param limit 페이지당 가져올 갯수
-     * @returns PartnerListResponseDto
-     * @throws ApiError
-     */
-    public static adminPartnerControllerSearchPartners(
-        searchType?: string,
-        keyword?: string,
-        status?: Array<string>,
-        businessType?: Array<string>,
-        page: number = 1,
-        limit: number = 20,
-    ): CancelablePromise<PartnerListResponseDto> {
-        return __request(OpenAPI, {
-            method: 'GET',
-            url: '/admin/partner/search',
-            query: {
-                'searchType': searchType,
-                'keyword': keyword,
-                'status': status,
-                'businessType': businessType,
-                'page': page,
-                'limit': limit,
-            },
-        });
-    }
-    /**
-     * 이용 약관
-     * @returns any
-     * @throws ApiError
-     */
-    public static partnerAgreementControllerGet(): CancelablePromise<any> {
-        return __request(OpenAPI, {
-            method: 'GET',
-            url: '/partner-agreement',
-        });
-    }
-    /**
-     * 이용 약관 생성
-     * @param requestBody
-     * @returns any
-     * @throws ApiError
-     */
-    public static partnerAgreementControllerCreate(
+    public static userRegistrationControllerRegister(
         requestBody: CreatePartnerAgreementDto,
-    ): CancelablePromise<any> {
+    ): CancelablePromise<ApiResponseDto> {
         return __request(OpenAPI, {
             method: 'POST',
-            url: '/partner-agreement',
+            url: '/admin/user/registration',
             body: requestBody,
             mediaType: 'application/json',
         });
     }
     /**
-     * 광고성 이용약관 수정
-     * @param requestBody
-     * @returns any
+     * 사용자 조회
+     * @returns UserResponseDto 조회 성공
      * @throws ApiError
      */
-    public static partnerAgreementControllerUpdateAdvertising(
-        requestBody: UpdatePartnerAgreementDto,
-    ): CancelablePromise<any> {
+    public static adminUserControllerGetUser(): CancelablePromise<UserResponseDto> {
         return __request(OpenAPI, {
-            method: 'PATCH',
-            url: '/partner-agreement',
-            body: requestBody,
-            mediaType: 'application/json',
+            method: 'GET',
+            url: '/admin/user',
+        });
+    }
+    /**
+     * 사용자 상태 조회
+     * @returns UserStateResponseDto 조회 성공
+     * @throws ApiError
+     */
+    public static adminUserControllerGetUserState(): CancelablePromise<UserStateResponseDto> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/admin/user/state',
+        });
+    }
+    /**
+     * 사용자 현재 상태 스냅샷
+     *
+     * 현재 세션을 기반으로 사용자 정보를 조회합니다.
+     *
+     * - 인증된 요청 주체의 “현재 상태 스냅샷”을 반환 반환합니다.
+     * - 인증 외에 판단·차단·흐름 제어는 하지 않는다
+     *
+     * @returns any 현재 로그인 사용자의 도메인 상태 컨텍스트 조회
+     * @throws ApiError
+     */
+    public static meControllerGetMe(): CancelablePromise<ApiResponseDto> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/admin/me',
+            errors: {
+                401: `세션이 없거나 만료된 경우 (Unauthorized)`,
+            },
         });
     }
 }

@@ -1,11 +1,11 @@
 "use client";
 
 import { useState } from "react";
-import type { UpdatePartnerAgreementDto } from "@/api/generated";
+import type { CreatePartnerAgreementDto } from "@/api/generated";
 import { useOnboardMutation } from "@/hooks/useOnboardMutation";
 
 export default function OnboardingPage() {
-  const [agreements, setAgreements] = useState<UpdatePartnerAgreementDto>({
+  const [agreements, setAgreements] = useState<CreatePartnerAgreementDto>({
     termsOfUse: false,
     privacyPolicy: false,
     marketingSms: false,
@@ -22,7 +22,7 @@ export default function OnboardingPage() {
     useOnboard(agreements);
   };
 
-  const toggleAgreement = (key: keyof UpdatePartnerAgreementDto) => {
+  const toggleAgreement = (key: keyof CreatePartnerAgreementDto) => {
     setAgreements((prev) => ({
       ...prev,
       [key]: !prev[key],
