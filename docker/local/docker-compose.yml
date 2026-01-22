@@ -1,9 +1,9 @@
 services:
-  partner-front:
+  partner-fe:
     build:
       context: ${CONTEXT_DIR}
       dockerfile: ./docker/local/Dockerfile
-    container_name: local-partner-front
+    container_name: local-partner-fe
     ports:
       - "${PARTNER_FE_PORT}:3000"
     env_file:
