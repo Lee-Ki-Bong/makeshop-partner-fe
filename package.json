@@ -7,9 +7,9 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "api:pull": "curl http://localhost:4110/openapi.json -o api/openapi.json",
-    "api:gen": "openapi --input api/openapi.json --output api/generated --client axios --useUnionTypes",
-    "api:all": "npm run api:pull && npm run api:gen"
+    "api:pull:local": "dotenv -e .env.local -- sh -c 'mkdir -p api && curl -s \"$OPENAPI_URL\" | jq . > api/openapi.json'",
+    "api:gen:local": "dotenv -e .env.local -- orval --config orval.config.ts",
+    "api:all:local": "npm run api:pull && npm run api:gen"
   },
   "dependencies": {
     "@radix-ui/react-label": "^2.1.8",
@@ -31,6 +31,7 @@
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "dotenv-cli": "^11.0.0",
     "eslint": "^9",
     "eslint-config-next": "16.0.1",
     "openapi-typescript-codegen": "^0.29.0",
