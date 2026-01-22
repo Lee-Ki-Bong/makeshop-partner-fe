@@ -2,7 +2,7 @@
 
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactNode, useState } from "react";
-import "@/api/openapi-loader"; // OpenAPI 설정 로더
+import "@/env/client";
 
 /**
  * 클라이언트 전용 Provider
