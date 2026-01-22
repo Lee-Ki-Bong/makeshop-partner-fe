@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const partnerApi = axios.create({
-  baseURL: "http://localhost:3000/api", // 파트너 백앤드
+  baseURL: "http://localhost:4110/api", // 파트너 백앤드
   headers: {
     "Content-Type": "application/json",
   },
